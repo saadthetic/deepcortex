@@ -1,0 +1,6 @@
+{
+  "name": "DeepCortex AI - Protecting Brain Health Earlier",
+  "description": "Longitudinal Cognitive Intelligence & Explainable Edge Neuro-AI for early detection, 4-stage brain MRI Grad-CAM analysis, and population health prevention.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
