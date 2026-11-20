@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import { createServer as createHttpServer } from 'http';
 import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
@@ -797,6 +798,8 @@ app.post('/api/neuro/tts', async (req: Request, res: Response) => {
 
 // Serve frontend in production or development
 async function startServer() {
+  const httpServer = createHttpServer(app);
+
   if (process.env.NODE_ENV === 'production') {
     // Serve production static build
     const distPath = fs.existsSync(path.resolve(__dirname, 'index.html'))
@@ -810,13 +813,16 @@ async function startServer() {
     // Vite middleware for dev
     const { createServer } = await import('vite');
     const vite = await createServer({
-      server: { middlewareMode: true },
+      server: {
+        middlewareMode: true,
+        hmr: process.env.DISABLE_HMR === 'true' ? false : { server: httpServer },
+      },
       appType: 'spa',
     });
     app.use(vite.middlewares);
   }
 
-  app.listen(PORT, '0.0.0.0', () => {
+  httpServer.listen(PORT, '0.0.0.0', () => {
     console.log(`DeepCortex AI Clinical Server running on http://0.0.0.0:${PORT}`);
   });
 }

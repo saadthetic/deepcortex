@@ -8,9 +8,7 @@ export default defineConfig(() => {
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, '.'),
-        '@tensorflow/tfjs-tflite': path.resolve(__dirname, 'node_modules/@tensorflow/tfjs-tflite/dist/tf-tflite.fesm.js'),
-        '@tensorflow/tfjs-core': path.resolve(__dirname, 'node_modules/@tensorflow/tfjs-core'),
+        '@': path.resolve(import.meta.dirname, '.'),
       },
     },
     server: {
